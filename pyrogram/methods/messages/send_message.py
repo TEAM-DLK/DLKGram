@@ -132,8 +132,10 @@ class SendMessage:
                 await app.send_message("me", "Message sent with **Pyrogram**!")
 
                 # Disable web page previews
+                from pyrogram import types
+
                 await app.send_message("me", "https://docs.pyrogram.org",
-                    disable_web_page_preview=True)
+                    link_preview_options=types.LinkPreviewOptions(is_disabled=True))
 
                 # Reply to a message using its id
                 await app.send_message("me", "this is a reply", reply_to_message_id=123)
