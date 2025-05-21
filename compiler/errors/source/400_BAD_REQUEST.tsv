@@ -457,6 +457,8 @@ STARGIFT_ALREADY_CONVERTED	The provided star gift already converted to stars
 STARGIFT_ALREADY_UPGRADED	This star gift was already upgraded before
 STARGIFT_INVALID	The specified gift is invalid
 STARGIFT_NOT_FOUND	The specified star gift was not found
+STARGIFT_NOT_OWNER	You can't control this gift because it doesn't belong to you
+STARGIFT_RESELL_NOT_ALLOWED	You can't buy this gift. Someone else may have already bought it
 STARGIFT_RESELL_TOO_EARLY_X	A wait of {value} seconds is required to resell this gift
 STARGIFT_SLUG_INVALID	The provided star gift slug is invalid (must match the format CollectionName-123)
 STARGIFT_UPGRADE_UNAVAILABLE	Gift is not available for upgrade yet.
