@@ -455,6 +455,7 @@ SRP_ID_INVALID	Invalid SRP ID provided
 SRP_PASSWORD_CHANGED	The password has changed
 STARGIFT_ALREADY_CONVERTED	The provided star gift already converted to stars
 STARGIFT_ALREADY_UPGRADED	This star gift was already upgraded before
+STARGIFT_CONVERT_TOO_OLD	This gift can no longer be converted into stars
 STARGIFT_INVALID	The specified gift is invalid
 STARGIFT_NOT_FOUND	The specified star gift was not found
 STARGIFT_NOT_OWNER	You can't control this gift because it doesn't belong to you
