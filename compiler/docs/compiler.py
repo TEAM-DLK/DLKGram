@@ -338,10 +338,12 @@ def pyrogram_api():
             update_color
             update_chat_notifications
             toggle_forum_topics
-            delete_folder
             export_folder_link
             get_folders
-            update_folder
+            create_folder
+            delete_folder
+            reorder_folders
+            edit_folder
             get_similar_channels
             join_folder
             leave_folder
@@ -966,7 +968,7 @@ def pyrogram_api():
         folder="""
         Folder
             Folder.delete
-            Folder.update
+            Folder.edit
             Folder.include_chat
             Folder.exclude_chat
             Folder.update_color
