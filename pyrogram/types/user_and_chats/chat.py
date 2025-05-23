@@ -741,7 +741,6 @@ class Chat(Object):
 
         peer_id = -chat.id
         usernames = getattr(chat, "usernames", [])
-        admin_rights = chat.admin_rights
 
         if isinstance(chat, raw.types.ChatForbidden):
             return Chat(
@@ -758,7 +757,7 @@ class Chat(Object):
             type=enums.ChatType.GROUP,
             title=chat.title,
             is_creator=chat.creator,
-            is_admin=True if admin_rights else None,
+            is_admin=True if chat.admin_rights else None,
             is_deactivated=chat.deactivated,
             is_call_active=chat.call_active,
             is_call_not_empty=chat.call_not_empty,
@@ -780,7 +779,6 @@ class Chat(Object):
         peer_id = utils.get_channel_id(channel.id)
         restriction_reason = getattr(channel, "restriction_reason", [])
         usernames = getattr(channel, "usernames", [])
-        admin_rights = getattr(channel, "admin_rights", None)
 
         if isinstance(channel, raw.types.ChannelForbidden):
             return Chat(
@@ -800,7 +798,7 @@ class Chat(Object):
             is_verified=channel.verified,
             is_restricted=channel.restricted,
             is_creator=channel.creator,
-            is_admin=True if admin_rights else None,
+            is_admin=True if channel.admin_rights else None,
             is_scam=channel.scam,
             is_fake=channel.fake,
             is_stories_hidden=channel.stories_hidden,
