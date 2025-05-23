@@ -470,6 +470,7 @@ def pyrogram_api():
             get_business_account_gifts
             get_business_account_star_balance
             get_business_connection
+            transfer_business_account_stars
         """,
         authorization="""
         Authorization
