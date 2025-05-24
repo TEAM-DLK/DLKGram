@@ -28,7 +28,7 @@ class ReorderFolders:
         folder_ids: List[int],
         main_chat_list_position: int = 0
     ) -> bool:
-        """Update chat folder.
+        """Change the order of chat folders.
 
         .. include:: /_includes/usable-by/users.rst
 
@@ -59,5 +59,3 @@ class ReorderFolders:
         )
 
         return r
-
-2, 6, 5, 3, 9, 10, 4, 7, 8
