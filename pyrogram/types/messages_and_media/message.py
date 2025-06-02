@@ -1599,7 +1599,7 @@ class Message(Object, Update):
             return f"https://t.me/c/{utils.get_channel_id(self.chat.id)}/{self.id}"
 
     @property
-    def content(self) -> str:
+    def content(self) -> Str:
         return self.text or self.caption or Str("").init([])
 
     # region Deprecated
