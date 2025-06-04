@@ -1600,9 +1600,9 @@ class Message(Object, Update):
                 return f"https://t.me/{self.chat.username}/{self.id}"
         else:
             if self.message_thread_id:
-                return f"https://t.me/{self.chat.username}/{self.message_thread_id}/{self.id}"
-            else:
                 return f"https://t.me/c/{utils.get_channel_id(self.chat.id)}/{self.message_thread_id}/{self.id}"
+            else:
+                return f"https://t.me/c/{utils.get_channel_id(self.chat.id)}/{self.id}"
 
     @property
     def content(self) -> Str:
