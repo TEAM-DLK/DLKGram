@@ -1590,13 +1590,19 @@ class Message(Object, Update):
 
     @property
     def link(self) -> str:
-        if (
-            self.chat.type in (enums.ChatType.GROUP, enums.ChatType.SUPERGROUP, enums.ChatType.CHANNEL)
-            and self.chat.username
-        ):
-            return f"https://t.me/{self.chat.username}/{self.id}"
+        if self.chat.type in (enums.ChatType.PRIVATE, enums.ChatType.BOT):
+            return ""
+
+        if self.chat.username:
+            if self.message_thread_id:
+                return f"https://t.me/{self.chat.username}/{self.message_thread_id}/{self.id}"
+            else:
+                return f"https://t.me/{self.chat.username}/{self.id}"
         else:
-            return f"https://t.me/c/{utils.get_channel_id(self.chat.id)}/{self.id}"
+            if self.message_thread_id:
+                return f"https://t.me/{self.chat.username}/{self.message_thread_id}/{self.id}"
+            else:
+                return f"https://t.me/c/{utils.get_channel_id(self.chat.id)}/{self.message_thread_id}/{self.id}"
 
     @property
     def content(self) -> Str:
