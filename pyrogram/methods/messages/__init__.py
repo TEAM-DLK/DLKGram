@@ -36,6 +36,7 @@ from .get_available_effects import GetAvailableEffects
 from .get_chat_history import GetChatHistory
 from .get_chat_history_count import GetChatHistoryCount
 from .get_custom_emoji_stickers import GetCustomEmojiStickers
+from .get_direct_messages_chat_topic_history import GetDirectMessagesChatTopicHistory
 from .get_discussion_message import GetDiscussionMessage
 from .get_discussion_replies import GetDiscussionReplies
 from .get_discussion_replies_count import GetDiscussionRepliesCount
@@ -146,6 +147,7 @@ class Messages(
     GetDiscussionReplies,
     GetDiscussionRepliesCount,
     StreamMedia,
-    GetCustomEmojiStickers
+    GetCustomEmojiStickers,
+    GetDirectMessagesChatTopicHistory
 ):
     pass
