@@ -300,6 +300,7 @@ def pyrogram_api():
             delete_chat_photo
             set_chat_title
             set_chat_description
+            set_chat_direct_messages_group
             set_chat_permissions
             pin_chat_message
             unpin_chat_message
@@ -312,6 +313,8 @@ def pyrogram_api():
             get_chat_members_count
             get_dialogs
             get_dialogs_count
+            get_direct_messages_topics_by_id
+            get_direct_messages_topics
             set_chat_username
             archive_chats
             unarchive_chats
@@ -693,6 +696,8 @@ def pyrogram_api():
             PaidMediaPreview
             PaidMessagesRefunded
             PaidMessagesPriceChanged
+            DirectMessagePriceChanged
+            DirectMessagesTopic
             PaymentForm
             ChatBoost
             ContactRegistered

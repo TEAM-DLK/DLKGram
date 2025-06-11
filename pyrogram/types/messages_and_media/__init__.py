@@ -28,6 +28,8 @@ from .checked_gift_code import CheckedGiftCode
 from .contact_registered import ContactRegistered
 from .contact import Contact
 from .dice import Dice
+from .direct_message_price_changed import DirectMessagePriceChanged
+from .direct_topic import DirectMessagesTopic
 from .document import Document
 from .external_reply_info import ExternalReplyInfo
 from .fact_check import FactCheck
@@ -110,6 +112,8 @@ __all__ = [
     "ContactRegistered",
     "Contact",
     "Dice",
+    "DirectMessagePriceChanged",
+    "DirectMessagesTopic",
     "Document",
     "ExternalReplyInfo",
     "FactCheck",

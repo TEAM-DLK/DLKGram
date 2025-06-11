@@ -149,6 +149,15 @@ class Chat(Object):
         has_automatic_translation (``bool``, *optional*):
             True, if automatic translation of messages is enabled in the channel.
 
+        has_forum_tabs (``bool``, *optional*):
+            True, if the supergroup is a forum, which topics are shown in the same way as in channel direct messages groups.
+
+        has_direct_messages_group (``bool``, *optional*):
+            True, if the channel has direct messages group.
+
+        direct_messages_chat_id (``int``, *optional*):
+            Chat identifier of a direct messages group for the channel, or a channel, for which the supergroup is the designated direct messages group.
+
         invite_link (``str``, *optional*):
             Chat invite link, for groups, supergroups and channels.
             Returned only in :meth:`~pyrogram.Client.get_chat`.
@@ -448,7 +457,7 @@ class Chat(Object):
 
         accepted_gift_types (:obj:`~pyrogram.types.AcceptedGiftTypes`, *optional*):
             Information about gifts that can be received by the user.
-            Returned only in :meth:`~pyrogram.Client.get_chat`
+            Returned only in :meth:`~pyrogram.Client.get_chat`\
 
         raw (:obj:`~pyrogram.raw.types.UserFull` | :obj:`~pyrogram.raw.types.ChatFull` | :obj:`~pyrogram.raw.types.ChannelFull`, *optional*):
             The raw chat or user object, as received from the Telegram API.
@@ -498,6 +507,9 @@ class Chat(Object):
         has_visible_history: Optional[bool] = None,
         has_aggressive_anti_spam_enabled: Optional[bool] = None,
         has_automatic_translation: Optional[bool] = None,
+        has_forum_tabs: Optional[bool] = None,
+        has_direct_messages_group: Optional[bool] = None,
+        direct_messages_chat_id: Optional[int] = None,
         invite_link: Optional[str] = None,
         pinned_message: Optional["types.Message"] = None,
         sticker_set_name: Optional[str] = None,
@@ -620,6 +632,9 @@ class Chat(Object):
         self.has_visible_history = has_visible_history
         self.has_aggressive_anti_spam_enabled = has_aggressive_anti_spam_enabled
         self.has_automatic_translation = has_automatic_translation
+        self.has_forum_tabs = has_forum_tabs
+        self.has_direct_messages_group = has_direct_messages_group
+        self.direct_messages_chat_id = direct_messages_chat_id
         self.invite_link = invite_link
         self.pinned_message = pinned_message
         self.sticker_set_name = sticker_set_name
@@ -795,6 +810,8 @@ class Chat(Object):
 
         if channel.monoforum:
             chat_type = enums.ChatType.DIRECT
+        elif channel.forum:
+            chat_type = enums.ChatType.FORUM
         elif channel.megagroup:
             chat_type = enums.ChatType.SUPERGROUP
 
@@ -828,6 +845,9 @@ class Chat(Object):
             subscription_until_date=utils.timestamp_to_datetime(channel.subscription_until_date),
             paid_message_star_count=channel.send_paid_messages_stars,
             has_automatic_translation=channel.autotranslation,
+            has_forum_tabs=channel.forum_tabs,
+            has_direct_messages_group=channel.broadcast_messages_allowed,
+            direct_messages_chat_id=channel.linked_monoforum_id,
             raw=channel,
             client=client
         )
