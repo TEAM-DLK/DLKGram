@@ -16,6 +16,7 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+import logging
 from datetime import datetime
 from typing import AsyncGenerator, BinaryIO, List, Optional, Union
 
@@ -23,6 +24,8 @@ import pyrogram
 from pyrogram import enums, raw, types, utils
 
 from ..object import Object
+
+log = logging.getLogger(__name__)
 
 
 class Chat(Object):
@@ -44,9 +47,6 @@ class Chat(Object):
         is_min (``bool``, *optional*):
             True, if this chat have reduced set of fields.
 
-        is_verified (``bool``, *optional*):
-            True, if this chat has been verified by Telegram. Supergroups, channels and bots only.
-
         is_members_hidden (``bool``, *optional*):
             True, if the chat members are hidden.
 
@@ -59,12 +59,6 @@ class Chat(Object):
 
         is_admin (``bool``, *optional*):
             True, if the current user is admin. Supergroups, channels and groups only.
-
-        is_scam (``bool``, *optional*):
-            True, if this chat has been flagged for scam.
-
-        is_fake (``bool``, *optional*):
-            True, if this chat has been flagged for impersonation.
 
         is_deactivated (``bool``, *optional*):
             True, if this chat has been flagged for deactivated.
@@ -98,6 +92,9 @@ class Chat(Object):
 
         is_paid_reactions_available (``bool``, *optional*):
             True, if paid reactions enabled in this chat.
+
+        verification_status (:obj:`~pyrogram.types.VerificationStatus`, *optional*):
+            Contains information about verification status of a chat.
 
         can_send_gift (``bool``, *optional*):
             True, if the user can send a gift to the supergroup or channel using :meth:`~pyrogram.Client.send_gift` or :meth:`~pyrogram.Client.transfer_gift`.
@@ -486,13 +483,10 @@ class Chat(Object):
         is_forum: Optional[bool] = None,
         is_direct_messages_group: Optional[bool] = None,
         is_min: Optional[bool] = None,
-        is_verified: Optional[bool] = None,
         is_members_hidden: Optional[bool] = None,
         is_restricted: Optional[bool] = None,
         is_creator: Optional[bool] = None,
         is_admin: Optional[bool] = None,
-        is_scam: Optional[bool] = None,
-        is_fake: Optional[bool] = None,
         is_deactivated: Optional[bool] = None,
         is_support: Optional[bool] = None,
         is_stories_hidden: Optional[bool] = None,
@@ -504,6 +498,7 @@ class Chat(Object):
         is_call_not_empty: Optional[bool] = None,
         is_public: Optional[bool] = None,
         is_paid_reactions_available: Optional[bool] = None,
+        verification_status: Optional["types.VerificationStatus"] = None,
         can_send_gift: Optional[bool] = None,
         title: Optional[str] = None,
         username: Optional[str] = None,
@@ -615,13 +610,10 @@ class Chat(Object):
         self.is_forum = is_forum
         self.is_direct_messages_group = is_direct_messages_group
         self.is_min = is_min
-        self.is_verified = is_verified
         self.is_members_hidden = is_members_hidden
         self.is_restricted = is_restricted
         self.is_creator = is_creator
         self.is_admin = is_admin
-        self.is_scam = is_scam
-        self.is_fake = is_fake
         self.is_deactivated = is_deactivated
         self.is_support = is_support
         self.is_stories_hidden = is_stories_hidden
@@ -633,6 +625,7 @@ class Chat(Object):
         self.is_call_not_empty = is_call_not_empty
         self.is_public = is_public
         self.is_paid_reactions_available = is_paid_reactions_available
+        self.verification_status = verification_status
         self.can_send_gift = can_send_gift
         self.title = title
         self.username = username
@@ -737,6 +730,32 @@ class Chat(Object):
         self.accepted_gift_types = accepted_gift_types
         self.raw = raw
 
+    # region Deprecated
+    # TODO: Remove later
+
+    @property
+    def is_verified(self) -> Optional[bool]:
+        log.warning(
+            "`chat.is_verified` is deprecated and will be removed in future updates. Use `chat.verification_status.is_verified` instead."
+        )
+        return getattr(self.verification_status, "is_verified", None)
+
+    @property
+    def is_scam(self) -> Optional[bool]:
+        log.warning(
+            "`chat.is_scam` is deprecated and will be removed in future updates. Use `chat.verification_status.is_scam` instead."
+        )
+        return getattr(self.verification_status, "is_scam", None)
+
+    @property
+    def is_fake(self) -> Optional[bool]:
+        log.warning(
+            "`chat.is_fake` is deprecated and will be removed in future updates. Use `chat.verification_status.is_fake` instead."
+        )
+        return getattr(self.verification_status, "is_fake", None)
+
+    # endregion
+
     @staticmethod
     def _parse_user_chat(client, user: "raw.types.User") -> Optional["Chat"]:
         if user is None or isinstance(user, raw.types.UserEmpty):
@@ -747,14 +766,12 @@ class Chat(Object):
         return Chat(
             id=peer_id,
             type=enums.ChatType.BOT if user.bot else enums.ChatType.PRIVATE,
-            is_verified=user.verified,
             is_restricted=user.restricted,
-            is_scam=user.scam,
-            is_fake=user.fake,
             is_support=user.support,
             is_stories_hidden=user.stories_hidden,
             is_stories_unavailable=user.stories_unavailable,
             is_business_bot=user.bot_business,
+            verification_status=types.VerificationStatus._parse(user),
             username=user.username or (user.usernames[0].username if user.usernames else None),
             usernames=types.List([types.Username._parse(r) for r in user.usernames]) or None,
             first_name=user.first_name,
@@ -841,16 +858,14 @@ class Chat(Object):
             is_forum=channel.forum,
             is_direct_messages_group=channel.monoforum,
             is_min=channel.min,
-            is_verified=channel.verified,
             is_restricted=channel.restricted,
             is_creator=channel.creator,
             is_admin=True if channel.admin_rights else None,
-            is_scam=channel.scam,
-            is_fake=channel.fake,
             is_stories_hidden=channel.stories_hidden,
             is_stories_unavailable=channel.stories_unavailable,
             is_call_active=channel.call_active,
             is_call_not_empty=channel.call_not_empty,
+            verification_status=types.VerificationStatus._parse(channel),
             title=channel.title,
             username=channel.username or (channel.usernames[0].username if channel.usernames else None),
             usernames=types.List([types.Username._parse(r) for r in usernames]) or None,
@@ -883,7 +898,7 @@ class Chat(Object):
         users: dict,
         chats: dict,
         is_chat: bool
-    ) -> "Chat":
+    ) -> Optional["Chat"]:
         from_id = utils.get_raw_peer_id(message.from_id)
         peer_id = utils.get_raw_peer_id(message.peer_id)
         chat_id = (peer_id or from_id) if is_chat else (from_id or peer_id)
@@ -1153,11 +1168,9 @@ class Chat(Object):
                 enums.ChatType.CHANNEL if chat_invite.broadcast else
                 enums.ChatType.GROUP
             ),
-            is_verified=chat_invite.verified,
-            is_scam=chat_invite.scam,
-            is_fake=chat_invite.fake,
             is_public=chat_invite.public,
             is_preview=True,
+            verification_status=types.VerificationStatus._parse(chat_invite),
             title=chat_invite.title,
             photo=types.Photo._parse(client, chat_invite.photo),
             members_count=chat_invite.participants_count,

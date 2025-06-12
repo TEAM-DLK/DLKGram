@@ -596,6 +596,7 @@ def pyrogram_api():
             BusinessWorkingHours
             User
             Username
+            VerificationStatus
             Chat
             ChatPhoto
             ChatMember
