@@ -115,6 +115,9 @@ class User(Object, Update):
         is_business_bot (``bool``, *optional*):
             True, if this bot can connect to business account.
 
+        is_min (``bool``, *optional*):
+            True, if this user have reduced set of fields.
+
         first_name (``str``, *optional*):
             User's or bot's first name.
 
@@ -228,6 +231,7 @@ class User(Object, Update):
         is_stories_hidden: bool = None,
         is_stories_unavailable: bool = None,
         is_business_bot: bool = None,
+        is_min: bool = None,
         first_name: str = None,
         last_name: str = None,
         status: "enums.UserStatus" = None,
@@ -274,6 +278,7 @@ class User(Object, Update):
         self.is_stories_hidden = is_stories_hidden
         self.is_stories_unavailable = is_stories_unavailable
         self.is_business_bot = is_business_bot
+        self.is_min = is_min
         self.first_name = first_name
         self.last_name = last_name
         self.status = status
@@ -336,6 +341,7 @@ class User(Object, Update):
             is_stories_hidden=user.stories_hidden,
             is_stories_unavailable=user.stories_unavailable,
             is_business_bot=user.bot_business,
+            is_min=user.min,
             first_name=user.first_name,
             last_name=user.last_name,
             **User._parse_status(user.status, user.bot),

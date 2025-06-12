@@ -38,6 +38,12 @@ class Chat(Object):
         is_forum (``bool``, *optional*):
             True, if the supergroup chat is a forum.
 
+        is_direct_messages_group (``bool``, *optional*):
+            True, if the supergroup is a direct message group for a channel chat.
+
+        is_min (``bool``, *optional*):
+            True, if this chat have reduced set of fields.
+
         is_verified (``bool``, *optional*):
             True, if this chat has been verified by Telegram. Supergroups, channels and bots only.
 
@@ -127,6 +133,12 @@ class Chat(Object):
         description (``str``, *optional*):
             Description, for groups, supergroups and channel chats.
             Returned only in :meth:`~pyrogram.Client.get_chat`.
+
+        show_message_sender_name (``bool``, *optional*):
+            True, if the chat has a username.
+
+        sign_messages (``bool``, *optional*):
+            True, if messages sent to the channel contains name of the sender. This field is only applicable to channels.
 
         dc_id (``int``, *optional*):
             The chat assigned DC (data center). Available only in case the chat has a photo.
@@ -472,6 +484,8 @@ class Chat(Object):
         id: Optional[int] = None,
         type: Optional["enums.ChatType"] = None,
         is_forum: Optional[bool] = None,
+        is_direct_messages_group: Optional[bool] = None,
+        is_min: Optional[bool] = None,
         is_verified: Optional[bool] = None,
         is_members_hidden: Optional[bool] = None,
         is_restricted: Optional[bool] = None,
@@ -501,6 +515,8 @@ class Chat(Object):
         chat_background: Optional["types.ChatBackground"] = None,
         bio: Optional[str] = None,
         description: Optional[str] = None,
+        show_message_sender_name: Optional[bool] = None,
+        sign_messages: Optional[bool] = None,
         dc_id: Optional[int] = None,
         folder_id: Optional[int] = None,
         has_protected_content: Optional[bool] = None,
@@ -597,6 +613,8 @@ class Chat(Object):
         self.id = id
         self.type = type
         self.is_forum = is_forum
+        self.is_direct_messages_group = is_direct_messages_group
+        self.is_min = is_min
         self.is_verified = is_verified
         self.is_members_hidden = is_members_hidden
         self.is_restricted = is_restricted
@@ -626,6 +644,8 @@ class Chat(Object):
         self.chat_background = chat_background
         self.bio = bio
         self.description = description
+        self.show_message_sender_name = show_message_sender_name
+        self.sign_messages = sign_messages
         self.dc_id = dc_id
         self.folder_id = folder_id
         self.has_protected_content = has_protected_content
@@ -819,6 +839,8 @@ class Chat(Object):
             id=peer_id,
             type=chat_type,
             is_forum=channel.forum,
+            is_direct_messages_group=channel.monoforum,
+            is_min=channel.min,
             is_verified=channel.verified,
             is_restricted=channel.restricted,
             is_creator=channel.creator,
@@ -834,6 +856,8 @@ class Chat(Object):
             usernames=types.List([types.Username._parse(r) for r in usernames]) or None,
             photo=types.ChatPhoto._parse(client, channel.photo, peer_id,
                                          getattr(channel, "access_hash", 0)),
+            show_message_sender_name=channel.signature_profiles,
+            sign_messages=channel.signatures,
             restrictions=types.List([types.Restriction._parse(r) for r in restriction_reason]) or None,
             permissions=types.ChatPermissions._parse(channel.default_banned_rights),
             members_count=channel.participants_count,
