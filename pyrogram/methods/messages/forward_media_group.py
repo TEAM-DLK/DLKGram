@@ -17,11 +17,10 @@
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import datetime
-from typing import Union, List
+from typing import List, Union
 
 import pyrogram
-from pyrogram import raw, utils
-from pyrogram import types
+from pyrogram import raw, types, utils
 
 
 class ForwardMediaGroup:
@@ -113,7 +112,7 @@ class ForwardMediaGroup:
                 drop_media_captions=hide_captions,
                 noforwards=protect_content,
                 allow_paid_floodskip=allow_paid_broadcast,
-                reply_to=utils.get_reply_to(
+                reply_to=await utils.get_reply_to(
                     client=self,
                     reply_parameters=reply_parameters,
                     message_thread_id=message_thread_id
