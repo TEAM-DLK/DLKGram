@@ -1070,6 +1070,7 @@ def pyrogram_api():
             MediaAreaType
             PrivacyRuleType
             GiftForResaleOrder
+            PaymentFormType
         """,
     )
 
