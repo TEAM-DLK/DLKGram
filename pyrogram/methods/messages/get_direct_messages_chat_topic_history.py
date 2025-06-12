@@ -81,8 +81,6 @@ class GetDirectMessagesChatTopicHistory:
         Parameters:
             chat_id (``int`` | ``str``):
                 Unique identifier (int) or username (str) of the target chat.
-                For your personal cloud (Saved Messages) you can simply use "me" or "self".
-                For a contact that exists in your Telegram address book you can use his phone number (str).
 
             topic_id (``int``):
                 Identifier of the topic which messages will be fetched.
@@ -92,7 +90,7 @@ class GetDirectMessagesChatTopicHistory:
                 By default, no limit is applied and all messages are returned.
 
             offset (``int``, *optional*):
-                Sequential number of the first message to be returned..
+                Sequential number of the first message to be returned.
                 Negative values are also accepted and become useful in case you set offset_id or offset_date.
 
             offset_id (``int``, *optional*):
