@@ -79,6 +79,8 @@ from .send_web_page import SendWebPage
 from .start_bot import StartBot
 from .stop_poll import StopPoll
 from .stream_media import StreamMedia
+from .translate_message_text import TranslateMessageText
+from .translate_text import TranslateText
 from .view_messages import ViewMessages
 from .vote_poll import VotePoll
 
@@ -147,6 +149,8 @@ class Messages(
     GetDiscussionReplies,
     GetDiscussionRepliesCount,
     StreamMedia,
+    TranslateMessageText,
+    TranslateText,
     GetCustomEmojiStickers,
     GetDirectMessagesChatTopicHistory
 ):

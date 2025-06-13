@@ -33,6 +33,7 @@ from .direct_topic import DirectMessagesTopic
 from .document import Document
 from .external_reply_info import ExternalReplyInfo
 from .fact_check import FactCheck
+from .formatted_text import FormattedText
 from .forum_topic import ForumTopic
 from .forum_topic_closed import ForumTopicClosed
 from .forum_topic_created import ForumTopicCreated
@@ -117,6 +118,7 @@ __all__ = [
     "Document",
     "ExternalReplyInfo",
     "FactCheck",
+    "FormattedText",
     "ForumTopic",
     "ForumTopicClosed",
     "ForumTopicCreated",

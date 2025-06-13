@@ -276,6 +276,8 @@ def pyrogram_api():
             search_global_count
             download_media
             stream_media
+            translate_message_text
+            translate_text
             get_discussion_message
             get_discussion_replies
             get_discussion_replies_count
@@ -643,6 +645,7 @@ def pyrogram_api():
             Document
             ExternalReplyInfo
             FactCheck
+            FormattedText
             ForumTopic
             ForumTopicClosed
             ForumTopicCreated
