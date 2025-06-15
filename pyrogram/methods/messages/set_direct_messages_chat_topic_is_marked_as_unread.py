@@ -52,7 +52,7 @@ class SetDirectMessagesChatTopicIsMarkedAsUnread:
         Example:
             .. code-block:: python
 
-                # Delete all messages in topic
+                # Mark the topic as unread
                 await app.set_direct_messages_chat_topic_is_marked_as_unread(chat_id, topic_id)
         """
         r = await self.invoke(
