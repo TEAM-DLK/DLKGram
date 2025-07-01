@@ -150,6 +150,9 @@ class Message(Object, Update):
         paid_media (:obj:`~pyrogram.types.PaidMediaInfo`, *optional*):
             The message is a paid media message.
 
+        checklist (:obj:`~pyrogram.types.Checklist`, *optional*):
+            The message is a checklist message.
+
         show_caption_above_media (``bool``, *optional*):
             If True, caption must be shown above the message media.
 
@@ -389,6 +392,12 @@ class Message(Object, Update):
         direct_message_price_changed (:obj:`~pyrogram.types.DirectMessagePriceChanged`, *optional*):
             Service message: direct messages price.
 
+        checklist_tasks_done (:obj:`~pyrogram.types.ChecklistTasksDone`, *optional*):
+            Service message: checklist tasks done.
+
+        checklist_tasks_added (:obj:`~pyrogram.types.ChecklistTasksAdded`, *optional*):
+            Service message: checklist tasks added.
+
         gift_code (:obj:`~pyrogram.types.GiftCode`, *optional*):
             Service message: gift code information.
 
@@ -537,6 +546,7 @@ class Message(Object, Update):
         from_scheduled: Optional[bool] = None,
         media: Optional["enums.MessageMediaType"] = None,
         paid_media: Optional["types.PaidMediaInfo"] = None,
+        checklist: Optional["types.Checklist"] = None,
         edit_date: Optional[datetime] = None,
         edit_hidden: Optional[bool] = None,
         media_group_id: Optional[int] = None,
@@ -605,6 +615,8 @@ class Message(Object, Update):
         paid_messages_refunded: Optional["types.PaidMessagesRefunded"] = None,
         paid_messages_price_changed: Optional["types.PaidMessagesPriceChanged"] = None,
         direct_message_price_changed: Optional["types.DirectMessagePriceChanged"] = None,
+        checklist_tasks_done: Optional[List["types.ChecklistTasksDone"]] = None,
+        checklist_tasks_added: Optional[List["types.ChecklistTasksAdded"]] = None,
         gift_code: Optional["types.GiftCode"] = None,
         gifted_premium: Optional["types.GiftedPremium"] = None,
         gifted_stars: Optional["types.GiftedStars"] = None,
@@ -678,6 +690,7 @@ class Message(Object, Update):
         self.from_scheduled = from_scheduled
         self.media = media
         self.paid_media = paid_media
+        self.checklist = checklist
         self.edit_date = edit_date
         self.edit_hidden = edit_hidden
         self.media_group_id = media_group_id
@@ -750,6 +763,8 @@ class Message(Object, Update):
         self.paid_messages_refunded = paid_messages_refunded
         self.paid_messages_price_changed = paid_messages_price_changed
         self.direct_message_price_changed = direct_message_price_changed
+        self.checklist_tasks_done = checklist_tasks_done
+        self.checklist_tasks_added = checklist_tasks_added
         self.gift_code = gift_code
         self.gifted_premium = gifted_premium
         self.gifted_stars = gifted_stars
@@ -865,6 +880,8 @@ class Message(Object, Update):
         paid_messages_refunded = None
         paid_messages_price_changed = None
         direct_message_price_changed = None
+        checklist_tasks_done = None
+        checklist_tasks_added = None
 
         service_type = enums.MessageServiceType.UNSUPPORTED
 
@@ -1066,6 +1083,12 @@ class Message(Object, Update):
             else:
                 service_type = enums.MessageServiceType.PAID_MESSAGES_PRICE_CHANGED
                 paid_messages_price_changed = types.PaidMessagesPriceChanged._parse(action)
+        elif isinstance(action, raw.types.MessageActionTodoCompletions):
+            service_type = enums.MessageServiceType.CHECKLIST_TASKS_DONE
+            checklist_tasks_done = types.ChecklistTasksDone._parse(message)
+        elif isinstance(action, raw.types.MessageActionTodoAppendTasks):
+            service_type = enums.MessageServiceType.CHECKLIST_TASKS_ADDED
+            checklist_tasks_added = types.ChecklistTasksAdded._parse(client, message)
 
         parsed_message = Message(
             id=message.id,
@@ -1124,6 +1147,8 @@ class Message(Object, Update):
             paid_messages_refunded=paid_messages_refunded,
             paid_messages_price_changed=paid_messages_price_changed,
             direct_message_price_changed=direct_message_price_changed,
+            checklist_tasks_done=checklist_tasks_done,
+            checklist_tasks_added=checklist_tasks_added,
             reactions=types.MessageReactions._parse(client, message.reactions, users, chats),
             business_connection_id=business_connection_id,
             raw=message,
@@ -1245,6 +1270,7 @@ class Message(Object, Update):
         poll = None
         dice = None
         paid_media = None
+        checklist = None
 
         media = message.media
         media_type = None
@@ -1333,7 +1359,11 @@ class Message(Object, Update):
             elif isinstance(media, raw.types.MessageMediaPaidMedia):
                 paid_media = types.PaidMediaInfo._parse(client, media)
                 media_type = enums.MessageMediaType.PAID_MEDIA
+            elif isinstance(media, raw.types.MessageMediaToDo):
+                media_type = enums.MessageMediaType.CHECKLIST
+                checklist = types.Checklist._parse(client, media, users)
             else:
+                media_type = enums.MessageMediaType.UNSUPPORTED
                 media = None
 
         link_preview_options = types.LinkPreviewOptions._parse(
@@ -1398,6 +1428,7 @@ class Message(Object, Update):
             from_scheduled=message.from_scheduled,
             media=media_type,
             paid_media=paid_media,
+            checklist=checklist,
             show_caption_above_media=getattr(message, "invert_media", None),
             edit_date=utils.timestamp_to_datetime(message.edit_date),
             edit_hidden=message.edit_hide,
@@ -4757,6 +4788,152 @@ class Message(Object, Update):
             quote_text=quote_text,
             quote_entities=quote_entities,
             quote_offset=quote_offset,
+        )
+
+    async def reply_checklist(
+        self,
+        title: str,
+        tasks: List["types.InputChecklistTask"],
+        parse_mode: Optional["enums.ParseMode"] = None,
+        entities: Optional[List["types.MessageEntity"]] = None,
+        quote: bool = None,
+        others_can_add_tasks: Optional[bool] = None,
+        others_can_mark_tasks_as_done: Optional[bool] = None,
+        disable_notification: Optional[bool] = None,
+        protect_content: Optional[bool] = None,
+        message_thread_id: Optional[int] = None,
+        effect_id: Optional[int] = None,
+        reply_parameters: Optional["types.ReplyParameters"] = None,
+        schedule_date: Optional[datetime] = None,
+        business_connection_id: Optional[str] = None,
+        allow_paid_broadcast: Optional[bool] = None,
+        paid_message_star_count: int = None,
+        reply_markup: Optional[
+            Union[
+                "types.InlineKeyboardMarkup",
+                "types.ReplyKeyboardMarkup",
+                "types.ReplyKeyboardRemove",
+                "types.ForceReply"
+            ]
+        ] = None,
+    ) -> "Message":
+        """Bound method *reply_checklist* of :obj:`~pyrogram.types.Message`.
+
+        Use as a shortcut for:
+
+        .. code-block:: python
+
+            await client.send_checklist(
+                chat_id=message.chat.id,
+                title="To do",
+                tasks=[
+                    types.InputChecklistTask(id=1, text="Task 1"),
+                    types.InputChecklistTask(id=2, text="Task 2")
+                ]
+            )
+
+        Example:
+            .. code-block:: python
+
+                await message.reply_checklist("To do", [
+                    types.InputChecklistTask(id=1, text="Task 1"),
+                    types.InputChecklistTask(id=2, text="Task 2")
+                ])
+
+        Parameters:
+            title (``str``):
+                Title of the checklist.
+
+            tasks (List of ``str``):
+                List of tasks in the checklist, 1-30 tasks.
+
+            parse_mode (:obj:`~pyrogram.enums.ParseMode`, *optional*):
+                The parse mode to use for the checklist.
+
+            entities (List of :obj:`~pyrogram.types.MessageEntity`, *optional*):
+                List of special entities that appear in the checklist title.
+
+            others_can_add_tasks (``bool``, *optional*):
+                True, if other users can add tasks to the list.
+
+            others_can_mark_tasks_as_done (``bool``, *optional*):
+                True, if other users can mark tasks as done or not done.
+
+            disable_notification (``bool``, *optional*):
+                Sends the message silently.
+                Users will receive a notification with no sound.
+
+            protect_content (``bool``, *optional*):
+                Protects the contents of the sent message from forwarding and saving.
+
+            message_thread_id (``int``, *optional*):
+                Unique identifier for the target message thread (topic) of the forum.
+                For supergroups only.
+
+            effect_id (``int``, *optional*):
+                Unique identifier of the message effect.
+                For private chats only.
+
+            reply_parameters (:obj:`~pyrogram.types.ReplyParameters`, *optional*):
+                Describes reply parameters for the message that is being sent.
+
+            schedule_date (:py:obj:`~datetime.datetime`, *optional*):
+                Date when the message will be automatically sent.
+
+            business_connection_id (``str``, *optional*):
+                Unique identifier of the business connection on behalf of which the message will be sent.
+
+            allow_paid_broadcast (``bool``, *optional*):
+                If True, you will be allowed to send up to 1000 messages per second.
+                Ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message.
+                The relevant Stars will be withdrawn from the bot's balance.
+                For bots only.
+
+            paid_message_star_count (``int``, *optional*):
+                The number of Telegram Stars the user agreed to pay to send the messages.
+
+            reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup` | :obj:`~pyrogram.types.ReplyKeyboardMarkup` | :obj:`~pyrogram.types.ReplyKeyboardRemove` | :obj:`~pyrogram.types.ForceReply`, *optional*):
+                Additional interface options. An object for an inline keyboard, custom reply keyboard,
+                instructions to remove reply keyboard or to force a reply from the user.
+
+        Returns:
+            On success, the sent :obj:`~pyrogram.types.Message` is returned.
+
+        Raises:
+            RPCError: In case of a Telegram RPC error.
+        """
+        if quote is None:
+            quote = self.chat.type != enums.ChatType.PRIVATE
+
+        if reply_parameters is None and quote:
+            reply_parameters = types.ReplyParameters(
+                message_id=self.id
+            )
+
+        if message_thread_id is None:
+            message_thread_id = self.message_thread_id
+
+        if business_connection_id is None:
+            business_connection_id = self.business_connection_id
+
+        return await self._client.send_checklist(
+            chat_id=self.chat.id,
+            title=title,
+            tasks=tasks,
+            parse_mode=parse_mode,
+            entities=entities,
+            others_can_add_tasks=others_can_add_tasks,
+            others_can_mark_tasks_as_done=others_can_mark_tasks_as_done,
+            disable_notification=disable_notification,
+            protect_content=protect_content,
+            message_thread_id=message_thread_id,
+            effect_id=effect_id,
+            reply_parameters=reply_parameters,
+            schedule_date=schedule_date,
+            business_connection_id=business_connection_id,
+            allow_paid_broadcast=allow_paid_broadcast,
+            paid_message_star_count=paid_message_star_count,
+            reply_markup=reply_markup,
         )
 
     async def edit_text(

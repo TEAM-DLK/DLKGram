@@ -16,6 +16,7 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from .add_checklist_tasks import AddChecklistTasks
 from .add_to_gifs import AddToGifs
 from .copy_media_group import CopyMediaGroup
 from .copy_message import CopyMessage
@@ -45,6 +46,7 @@ from .get_media_group import GetMediaGroup
 from .get_messages import GetMessages
 from .get_scheduled_messages import GetScheduledMessages
 from .get_stickers import GetStickers
+from .mark_checklist_tasks_as_done import MarkChecklistTasksAsDone
 from .read_chat_history import ReadChatHistory
 from .read_mentions import ReadMentions
 from .read_reactions import ReadReactions
@@ -59,6 +61,7 @@ from .send_animation import SendAnimation
 from .send_audio import SendAudio
 from .send_cached_media import SendCachedMedia
 from .send_chat_action import SendChatAction
+from .send_checklist import SendChecklist
 from .send_contact import SendContact
 from .send_dice import SendDice
 from .send_document import SendDocument
@@ -88,6 +91,7 @@ from .vote_poll import VotePoll
 
 
 class Messages(
+    AddChecklistTasks,
     AddToGifs,
     DeleteMessages,
     EditMessageCaption,
@@ -101,8 +105,10 @@ class Messages(
     GetMessages,
     GetScheduledMessages,
     GetStickers,
+    MarkChecklistTasksAsDone,
     SendAudio,
     SendChatAction,
+    SendChecklist,
     SendContact,
     SendDocument,
     SendAnimation,

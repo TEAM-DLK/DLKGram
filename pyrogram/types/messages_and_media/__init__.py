@@ -25,6 +25,10 @@ from .chat_background import ChatBackground
 from .chat_boost import ChatBoost
 from .chat_theme import ChatTheme
 from .checked_gift_code import CheckedGiftCode
+from .checklist_task import ChecklistTask
+from .checklist_tasks_added import ChecklistTasksAdded
+from .checklist_tasks_done import ChecklistTasksDone
+from .checklist import Checklist
 from .contact_registered import ContactRegistered
 from .contact import Contact
 from .dice import Dice
@@ -47,6 +51,7 @@ from .gift_upgrade_preview import GiftUpgradePreview
 from .invoice import Invoice
 from .link_preview_options import LinkPreviewOptions
 from .giveaway import Giveaway
+from .input_checklist_task import InputChecklistTask
 from .giveaway_completed import GiveawayCompleted
 from .giveaway_created import GiveawayCreated
 from .giveaway_prize_stars import GiveawayPrizeStars
@@ -111,6 +116,10 @@ __all__ = [
     "ChatBoost",
     "ChatTheme",
     "CheckedGiftCode",
+    "ChecklistTask",
+    "ChecklistTasksAdded",
+    "ChecklistTasksDone",
+    "Checklist",
     "ContactRegistered",
     "Contact",
     "Dice",
@@ -131,6 +140,7 @@ __all__ = [
     "GiftCode",
     "GiftUpgradePreview",
     "Giveaway",
+    "InputChecklistTask",
     "Invoice",
     "LinkPreviewOptions",
     "GiveawayCompleted",
