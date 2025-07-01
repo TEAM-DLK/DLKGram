@@ -67,6 +67,7 @@ from .paid_media_info import PaidMediaInfo
 from .paid_media_preview import PaidMediaPreview
 from .paid_messages_price_changed import PaidMessagesPriceChanged
 from .paid_messages_refunded import PaidMessagesRefunded
+from .paid_reactor import PaidReactor
 from .payment_form import PaymentForm
 from .photo import Photo
 from .poll import Poll
@@ -152,6 +153,7 @@ __all__ = [
     "PaidMediaPreview",
     "PaidMessagesPriceChanged",
     "PaidMessagesRefunded",
+    "PaidReactor",
     "PaymentForm",
     "Photo",
     "Poll",

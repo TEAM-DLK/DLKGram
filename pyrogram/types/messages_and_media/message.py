@@ -1124,7 +1124,7 @@ class Message(Object, Update):
             paid_messages_refunded=paid_messages_refunded,
             paid_messages_price_changed=paid_messages_price_changed,
             direct_message_price_changed=direct_message_price_changed,
-            reactions=types.MessageReactions._parse(client, message.reactions),
+            reactions=types.MessageReactions._parse(client, message.reactions, users, chats),
             business_connection_id=business_connection_id,
             raw=message,
             client=client
@@ -1356,7 +1356,7 @@ class Message(Object, Update):
             else:
                 reply_markup = None
 
-        reactions = types.MessageReactions._parse(client, message.reactions)
+        reactions = types.MessageReactions._parse(client, message.reactions, users, chats)
 
         parsed_message = Message(
             id=message.id,

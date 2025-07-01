@@ -702,6 +702,7 @@ def pyrogram_api():
             PaidMediaInfo
             PaidMediaPreview
             PaidMessagesRefunded
+            PaidReactor
             PaidMessagesPriceChanged
             DirectMessagePriceChanged
             DirectMessagesTopic
