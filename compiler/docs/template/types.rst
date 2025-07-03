@@ -73,19 +73,6 @@ Bot commands
 
     {bot_commands}
 
-Input Media
------------
-
-.. autosummary::
-    :nosignatures:
-
-    {input_media}
-
-.. toctree::
-    :hidden:
-
-    {input_media}
-
 Inline Mode
 -----------
 
@@ -98,19 +85,6 @@ Inline Mode
     :hidden:
 
     {inline_mode}
-
-InputMessageContent
--------------------
-
-.. autosummary::
-    :nosignatures:
-
-    {input_message_content}
-
-.. toctree::
-    :hidden:
-
-    {input_message_content}
 
 Authorization
 -------------
@@ -125,41 +99,15 @@ Authorization
 
     {authorization}
 
-InputPrivacyRule
-----------------
-
-.. autosummary::
-    :nosignatures:
-
-    {input_privacy_rule}
-
-.. toctree::
-    :hidden:
-
-    {input_privacy_rule}
-
-InputCredentials
-----------------
-
-.. autosummary::
-    :nosignatures:
-
-    {input_credentials}
-
-.. toctree::
-    :hidden:
-
-    {input_credentials}
-
-InputInvoice
+InputContent
 ------------
 
 .. autosummary::
     :nosignatures:
 
-    {input_invoice}
+    {input_content}
 
 .. toctree::
     :hidden:
 
-    {input_invoice}
+    {input_content}

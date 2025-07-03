@@ -16,37 +16,21 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-import re
-
 import pyrogram
-from pyrogram import raw
 
-from .input_invoice import InputInvoice
+from ..object import Object
 
 
-class InputInvoiceMessage(InputInvoice):
-    """An invoice from a link.
+class InputInvoice(Object):
+    """Describes an invoice to process.
 
-    Parameters:
-        name (``str``):
-            The name of the invoice or link itself.
+    It should be one of:
+
+    - :obj:`~pyrogram.types.InputInvoiceMessage`
+    - :obj:`~pyrogram.types.InputInvoiceName`
     """
-    def __init__(
-        self,
-        name: str,
-    ):
+    def __init__(self):
         super().__init__()
 
-        self.name = name
-
     async def write(self, client: "pyrogram.Client"):
-        match = re.match(r"^(?:https?://)?(?:www\.)?(?:t(?:elegram)?\.(?:org|me|dog)/\$)([\w-]+)$", self.name)
-
-        if match:
-            slug = match.group(1)
-        else:
-            slug = self.name
-
-        return raw.types.InputInvoiceSlug(
-            slug=slug
-        )
+        raise NotImplementedError

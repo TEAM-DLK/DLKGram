@@ -775,29 +775,42 @@ def pyrogram_api():
             BotCommandScopeChatAdministrators
             BotCommandScopeChatMember
         """,
-        input_media="""
-        Input Media
-            InputMedia
-            InputMediaPhoto
-            InputMediaVideo
-            InputMediaAudio
-            InputMediaAnimation
-            InputMediaDocument
-            InputPhoneContact
-        """,
-        input_credentials="""
-        Input Credentials
+        input_content="""
+        Input Content
+            InputContactMessageContent
             InputCredentials
             InputCredentialsApplePay
             InputCredentialsGooglePay
             InputCredentialsNew
             InputCredentialsSaved
-        """,
-        input_invoice="""
-        Input Invoice
             InputInvoice
             InputInvoiceMessage
+            InputInvoiceMessageContent
             InputInvoiceName
+            InputLocationMessageContent
+            InputMedia
+            InputMediaAnimation
+            InputMediaAudio
+            InputMediaDocument
+            InputMediaPhoto
+            InputMediaVideo
+            InputMessageContent
+            InputPhoneContact
+            InputPrivacyRule
+            InputPrivacyRuleAllowAll
+            InputPrivacyRuleAllowBots
+            InputPrivacyRuleAllowChats
+            InputPrivacyRuleAllowCloseFriends
+            InputPrivacyRuleAllowContacts
+            InputPrivacyRuleAllowPremium
+            InputPrivacyRuleAllowUsers
+            InputPrivacyRuleDisallowAll
+            InputPrivacyRuleDisallowBots
+            InputPrivacyRuleDisallowChats
+            InputPrivacyRuleDisallowContacts
+            InputPrivacyRuleDisallowUsers
+            InputTextMessageContent
+            InputVenueMessageContent
         """,
         inline_mode="""
         Inline Mode
@@ -822,37 +835,12 @@ def pyrogram_api():
             InlineQueryResultVoice
             ChosenInlineResult
         """,
-        input_message_content="""
-        InputMessageContent
-            InputMessageContent
-            InputContactMessageContent
-            InputInvoiceMessageContent
-            InputLocationMessageContent
-            InputTextMessageContent
-            InputVenueMessageContent
-        """,
         authorization="""
         Authorization
             ActiveSession
             ActiveSessions
             SentCode
             TermsOfService
-        """,
-        input_privacy_rule="""
-        InputPrivacyRule
-            InputPrivacyRule
-            InputPrivacyRuleAllowAll
-            InputPrivacyRuleAllowBots
-            InputPrivacyRuleAllowChats
-            InputPrivacyRuleAllowCloseFriends
-            InputPrivacyRuleAllowContacts
-            InputPrivacyRuleAllowPremium
-            InputPrivacyRuleAllowUsers
-            InputPrivacyRuleDisallowAll
-            InputPrivacyRuleDisallowBots
-            InputPrivacyRuleDisallowChats
-            InputPrivacyRuleDisallowContacts
-            InputPrivacyRuleDisallowUsers
         """
     )
 
