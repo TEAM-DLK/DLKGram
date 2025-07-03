@@ -29,6 +29,7 @@ from .edit_inline_media import EditInlineMedia
 from .edit_inline_reply_markup import EditInlineReplyMarkup
 from .edit_inline_text import EditInlineText
 from .edit_message_caption import EditMessageCaption
+from .edit_message_checklist import EditMessageChecklist
 from .edit_message_media import EditMessageMedia
 from .edit_message_reply_markup import EditMessageReplyMarkup
 from .edit_message_text import EditMessageText
@@ -95,6 +96,7 @@ class Messages(
     AddToGifs,
     DeleteMessages,
     EditMessageCaption,
+    EditMessageChecklist,
     EditMessageReplyMarkup,
     EditMessageMedia,
     EditMessageText,

@@ -19,7 +19,7 @@
 from typing import List, Union
 
 import pyrogram
-from pyrogram import raw, types
+from pyrogram import raw
 
 
 class MarkChecklistTasksAsDone:
@@ -27,9 +27,11 @@ class MarkChecklistTasksAsDone:
         self: "pyrogram.Client",
         chat_id: Union[int, str],
         message_id: int,
-        tasks: List["types.InputChecklistTask"]
+        *,
+        marked_as_done_task_ids: List[int] = None,
+        marked_as_not_done_task_ids: List[int] = None,
     ) -> int:
-        """Add tasks to a checklist in a message.
+        """Add tasks of a checklist in a message as done or not done.
 
         .. include:: /_includes/usable-by/users.rst
 
@@ -42,8 +44,11 @@ class MarkChecklistTasksAsDone:
             message_id (``int``):
                 Identifier of the message containing the checklist.
 
-            tasks (List of :obj:`~pyrogram.types.InputChecklistTask`):
-                List of tasks to add to the checklist.
+            marked_as_done_task_ids (List of ``int``):
+                Identifiers of tasks that were marked as done.
+
+            marked_as_not_done_task_ids (List of ``int``):
+                Identifiers of tasks that were marked as not done.
 
         Returns:
             ``bool``: On success, True is returned.
@@ -51,22 +56,18 @@ class MarkChecklistTasksAsDone:
         Example:
             .. code-block:: python
 
-                await app.add_checklist_tasks(
+                await app.mark_checklist_tasks_as_done(
                     chat_id,
                     message_id,
-                    tasks=[
-                        types.InputChecklistTask(
-                            id=2,
-                            text="Task 2"
-                        )
-                    ]
+                    marked_as_done_task_ids=[1, 2, 3]
                 )
         """
         await self.invoke(
-            raw.functions.messages.AppendTodoList(
+            raw.functions.messages.ToggleTodoCompleted(
                 peer=await self.resolve_peer(chat_id),
                 msg_id=message_id,
-                list=[await task.write(self) for task in tasks]
+                completed=marked_as_done_task_ids or [],
+                incompleted=marked_as_not_done_task_ids or [],
             )
         )
 

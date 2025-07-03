@@ -16,6 +16,7 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
+from .input_checklist import InputChecklist
 from .input_contact_message_content import InputContactMessageContent
 from .input_credentials import InputCredentials
 from .input_credentials_apple_pay import InputCredentialsApplePay
@@ -52,6 +53,7 @@ from .input_text_message_content import InputTextMessageContent
 from .input_venue_message_content import InputVenueMessageContent
 
 __all__ = [
+    "InputChecklist",
     "InputContactMessageContent",
     "InputCredentials",
     "InputCredentialsApplePay",

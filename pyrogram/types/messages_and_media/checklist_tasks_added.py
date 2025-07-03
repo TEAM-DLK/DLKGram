@@ -54,5 +54,5 @@ class ChecklistTasksAdded(Object):
 
         return ChecklistTasksAdded(
             checklist_message_id=getattr(message.reply_to, "reply_to_msg_id", None),
-            tasks=types.List([types.ChecklistTask._parse(client, task, None, {}) for task in action.tasks])
+            tasks=types.List([types.ChecklistTask._parse(client, task, None, {}) for task in action.list])
         )

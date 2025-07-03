@@ -246,6 +246,7 @@ def pyrogram_api():
             send_reaction
             edit_message_text
             edit_message_caption
+            edit_message_checklist
             edit_message_media
             edit_message_reply_markup
             edit_inline_text
@@ -777,6 +778,7 @@ def pyrogram_api():
         """,
         input_content="""
         Input Content
+            InputChecklist
             InputContactMessageContent
             InputCredentials
             InputCredentialsApplePay
@@ -887,6 +889,7 @@ def pyrogram_api():
             Message.edit_text
             Message.edit_caption
             Message.edit_media
+            Message.edit_checklist
             Message.edit_reply_markup
             Message.reply
             Message.reply_text

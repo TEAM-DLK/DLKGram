@@ -29,23 +29,27 @@ class SendChecklist:
     async def send_checklist(
         self: "pyrogram.Client",
         chat_id: Union[int, str],
-        title: str,
-        tasks: List["types.InputChecklistTask"],
-        parse_mode: Optional["enums.ParseMode"] = None,
-        entities: Optional[List["types.MessageEntity"]] = None,
-        others_can_add_tasks: Optional[bool] = None,
-        others_can_mark_tasks_as_done: Optional[bool] = None,
+        checklist: "types.InputChecklist",
         disable_notification: Optional[bool] = None,
         protect_content: Optional[bool] = None,
         message_thread_id: Optional[int] = None,
         effect_id: Optional[int] = None,
         reply_parameters: Optional["types.ReplyParameters"] = None,
         schedule_date: Optional[datetime] = None,
-        paid_message_star_count: int = None
+        business_connection_id: Optional[str] = None,
+        paid_message_star_count: int = None,
+        reply_markup: Optional[
+            Union[
+                "types.InlineKeyboardMarkup",
+                "types.ReplyKeyboardMarkup",
+                "types.ReplyKeyboardRemove",
+                "types.ForceReply"
+            ]
+        ] = None,
     ) -> "types.Message":
         """Send a new checklist.
 
-        .. include:: /_includes/usable-by/users.rst
+        .. include:: /_includes/usable-by/users-bots.rst
 
         Parameters:
             chat_id (``int`` | ``str``):
@@ -53,23 +57,8 @@ class SendChecklist:
                 For your personal cloud (Saved Messages) you can simply use "me" or "self".
                 For a contact that exists in your Telegram address book you can use his phone number (str).
 
-            title (``str``):
-                Title of the checklist.
-
-            tasks (List of ``str``):
-                List of tasks in the checklist, 1-30 tasks.
-
-            parse_mode (:obj:`~pyrogram.enums.ParseMode`, *optional*):
-                The parse mode to use for the checklist.
-
-            entities (List of :obj:`~pyrogram.types.MessageEntity`, *optional*):
-                List of special entities that appear in the checklist title.
-
-            others_can_add_tasks (``bool``, *optional*):
-                True, if other users can add tasks to the list.
-
-            others_can_mark_tasks_as_done (``bool``, *optional*):
-                True, if other users can mark tasks as done or not done.
+            checklist (:obj:`~pyrogram.types.InputChecklist`):
+                Checklist to send.
 
             disable_notification (``bool``, *optional*):
                 Sends the message silently.
@@ -92,8 +81,15 @@ class SendChecklist:
             schedule_date (:py:obj:`~datetime.datetime`, *optional*):
                 Date when the message will be automatically sent.
 
+            business_connection_id (``str``, *optional*):
+                Unique identifier of the business connection on behalf of which the message will be sent.
+
             paid_message_star_count (``int``, *optional*):
                 The number of Telegram Stars the user agreed to pay to send the messages.
+
+            reply_markup (:obj:`~pyrogram.types.InlineKeyboardMarkup` | :obj:`~pyrogram.types.ReplyKeyboardMarkup` | :obj:`~pyrogram.types.ReplyKeyboardRemove` | :obj:`~pyrogram.types.ForceReply`, *optional*):
+                Additional interface options. An object for an inline keyboard, custom reply keyboard,
+                instructions to remove reply keyboard or to force a reply from the user.
 
         Returns:
             :obj:`~pyrogram.types.Message`: On success, the sent checklist message is returned.
@@ -111,7 +107,7 @@ class SendChecklist:
                 )
         """
         title, entities = (await utils.parse_text_entities(
-            self, title, parse_mode, entities
+            self, checklist.title, checklist.parse_mode, checklist.entities
         )).values()
 
         r = await self.invoke(
@@ -123,9 +119,9 @@ class SendChecklist:
                             text=title,
                             entities=entities or []
                         ),
-                        list=[await task.write(self) for task in tasks],
-                        others_can_append=others_can_add_tasks,
-                        others_can_complete=others_can_mark_tasks_as_done
+                        list=[await task.write(self) for task in checklist.tasks],
+                        others_can_append=checklist.others_can_add_tasks,
+                        others_can_complete=checklist.others_can_mark_tasks_as_done
                     )
                 ),
                 message="",
@@ -139,8 +135,10 @@ class SendChecklist:
                 schedule_date=utils.datetime_to_timestamp(schedule_date),
                 noforwards=protect_content,
                 allow_paid_stars=paid_message_star_count,
+                reply_markup=await reply_markup.write(self) if reply_markup else None,
                 effect=effect_id
-            )
+            ),
+            business_connection_id=business_connection_id
         )
 
         messages = await utils.parse_messages(client=self, messages=r)
