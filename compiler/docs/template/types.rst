@@ -61,7 +61,7 @@ Bot keyboards
     {bot_keyboards}
 
 Bot commands
--------------
+------------
 
 .. autosummary::
     :nosignatures:
@@ -137,3 +137,29 @@ InputPrivacyRule
     :hidden:
 
     {input_privacy_rule}
+
+InputCredentials
+----------------
+
+.. autosummary::
+    :nosignatures:
+
+    {input_credentials}
+
+.. toctree::
+    :hidden:
+
+    {input_credentials}
+
+InputInvoice
+------------
+
+.. autosummary::
+    :nosignatures:
+
+    {input_invoice}
+
+.. toctree::
+    :hidden:
+
+    {input_invoice}

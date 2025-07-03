@@ -16,16 +16,16 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from .authorization import *
-from .bots_and_keyboards import *
-from .inline_mode import *
-from .input_credentials import *
-from .input_invoice import *
-from .input_media import *
-from .input_message_content import *
-from .input_privacy_rule import *
-from .list import List
-from .messages_and_media import *
-from .object import Object
-from .update import *
-from .user_and_chats import *
+from .input_credentials import InputCredentials
+from .input_credentials_apple_pay import InputCredentialsApplePay
+from .input_credentials_google_pay import InputCredentialsGooglePay
+from .input_credentials_new import InputCredentialsNew
+from .input_credentials_saved import InputCredentialsSaved
+
+__all__ = [
+    "InputCredentials",
+    "InputCredentialsApplePay",
+    "InputCredentialsGooglePay",
+    "InputCredentialsNew",
+    "InputCredentialsSaved"
+]

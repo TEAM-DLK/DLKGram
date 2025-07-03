@@ -715,6 +715,9 @@ def pyrogram_api():
             DirectMessagePriceChanged
             DirectMessagesTopic
             PaymentForm
+            PaymentOption
+            SavedCredentials
+            PaymentResult
             ChatBoost
             ContactRegistered
             ScreenshotTaken
@@ -781,6 +784,20 @@ def pyrogram_api():
             InputMediaAnimation
             InputMediaDocument
             InputPhoneContact
+        """,
+        input_credentials="""
+        Input Credentials
+            InputCredentials
+            InputCredentialsApplePay
+            InputCredentialsGooglePay
+            InputCredentialsNew
+            InputCredentialsSaved
+        """,
+        input_invoice="""
+        Input Invoice
+            InputInvoice
+            InputInvoiceMessage
+            InputInvoiceName
         """,
         inline_mode="""
         Inline Mode

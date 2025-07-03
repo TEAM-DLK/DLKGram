@@ -6091,16 +6091,23 @@ class Message(Object, Update):
             message_id=self.id
         )
 
-    async def pay(self) -> List[Union["types.Photo", "types.Video"]]:
+    async def pay(self) -> "types.PaymentResult":
         """Bound method *pay* of :obj:`~pyrogram.types.Message`.
 
         Use as a shortcut for:
 
         .. code-block:: python
 
-            await client.send_payment_form(
-                chat_id=message.chat.id,
-                message_id=message_id
+            invoice = types.InputInvoiceMessage(
+                    chat_id=chat_id,
+                    message_id=123
+                )
+
+            form = await app.get_payment_form(invoice)
+
+            await app.send_payment_form(
+                payment_form_id=form.id,
+                input_invoice=invoice
             )
 
         Example:
@@ -6109,9 +6116,16 @@ class Message(Object, Update):
                 await message.pay()
 
         Returns:
-            List of :obj:`~pyrogram.types.Photo` | :obj:`~pyrogram.types.Video`: On success, the list of bought photos and videos is returned.
+            :obj:`~pyrogram.types.PaymentResult`: On success, the payment result is returned.
         """
-        return await self._client.send_payment_form(
+        invoice = types.InputInvoiceMessage(
             chat_id=self.chat.id,
             message_id=self.id
+        )
+
+        form = await self._client.get_payment_form(invoice)
+
+        return await self._client.send_payment_form(
+            payment_form_id=form.id,
+            input_invoice=invoice
         )

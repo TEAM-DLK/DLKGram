@@ -74,6 +74,8 @@ from .paid_messages_price_changed import PaidMessagesPriceChanged
 from .paid_messages_refunded import PaidMessagesRefunded
 from .paid_reactor import PaidReactor
 from .payment_form import PaymentForm
+from .payment_option import PaymentOption
+from .payment_result import PaymentResult
 from .photo import Photo
 from .poll import Poll
 from .proximity_alert_triggered import ProximityAlertTriggered
@@ -82,6 +84,7 @@ from .reaction import Reaction
 from .refunded_payment import RefundedPayment
 from .reply_parameters import ReplyParameters
 from .restriction_reason import RestrictionReason
+from .saved_credentials import SavedCredentials
 from .screenshot_taken import ScreenshotTaken
 from .gift_attribute import GiftAttribute
 from .gift import Gift
@@ -165,6 +168,8 @@ __all__ = [
     "PaidMessagesRefunded",
     "PaidReactor",
     "PaymentForm",
+    "PaymentOption",
+    "PaymentResult",
     "Photo",
     "Poll",
     "ProximityAlertTriggered",
@@ -173,6 +178,7 @@ __all__ = [
     "RefundedPayment",
     "ReplyParameters",
     "RestrictionReason",
+    "SavedCredentials",
     "ScreenshotTaken",
     "GiftAttribute",
     "Gift",

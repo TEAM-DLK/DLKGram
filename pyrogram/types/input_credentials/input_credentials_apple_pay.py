@@ -16,16 +16,28 @@
 #  You should have received a copy of the GNU Lesser General Public License
 #  along with Pyrogram.  If not, see <http://www.gnu.org/licenses/>.
 
-from .authorization import *
-from .bots_and_keyboards import *
-from .inline_mode import *
-from .input_credentials import *
-from .input_invoice import *
-from .input_media import *
-from .input_message_content import *
-from .input_privacy_rule import *
-from .list import List
-from .messages_and_media import *
-from .object import Object
-from .update import *
-from .user_and_chats import *
+import pyrogram
+from pyrogram import raw
+
+from .input_credentials import InputCredentials
+
+
+class InputCredentialsApplePay(InputCredentials):
+    """Applies if a user enters new credentials using Apple Pay.
+
+    Parameters:
+        data (``str``):
+            JSON-encoded data with the credential identifier.
+    """
+    def __init__(
+        self,
+        data: str,
+    ):
+        super().__init__()
+
+        self.data = data
+
+    async def write(self, client: "pyrogram.Client"):
+        return raw.types.InputPaymentCredentialsApplePay(
+            payment_data=raw.types.DataJSON(data=self.data)
+        )
