@@ -65,7 +65,7 @@ It allows you to interact with Telegram using user accounts or bot accounts, wit
 ### Stable version (PyPI)
 
 ```bash
-pip install dlkgram
+pip install DLKGram
 ```
 
 ### Development version (GitHub)
