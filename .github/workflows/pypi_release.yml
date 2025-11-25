@@ -1,4 +1,4 @@
-name: Upload release to PyPI
+name: Upload release DLKGram to PyPI
 
 on:
   push:
