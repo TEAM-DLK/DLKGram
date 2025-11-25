@@ -1,6 +1,4 @@
 
-
-````html
 <p align="center">
     <a href="https://github.com/TEAM-DLK/DLKGram">
         <img src="https://raw.githubusercontent.com/TEAM-DLK/DLKGram/main/assets/dlkgram-logo.png" alt="DLKGram" width="128">
