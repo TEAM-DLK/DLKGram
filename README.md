@@ -1,85 +1,126 @@
+
+
+````html
 <p align="center">
-    <a href="https://github.com/KurimuzonAkuma/pyrogram">
-        <img src="https://raw.githubusercontent.com/KurimuzonAkuma/kurigramartwork/master/kurigram-logo.png" alt="Pyrogram" width="128">
+    <a href="https://github.com/TEAM-DLK/DLKGram">
+        <img src="https://raw.githubusercontent.com/TEAM-DLK/DLKGram/main/assets/dlkgram-logo.png" alt="DLKGram" width="128">
     </a>
     <br>
     <b>Telegram MTProto API Framework for Python</b>
     <br>
-    <a href="https://kurigram.live">
+    <a href="https://dlkgram.live">
         Homepage
     </a>
     •
-    <a href="https://docs.kurigram.live">
+    <a href="https://dlkgram.live/docs">
         Documentation
     </a>
     •
-    <a href="https://t.me/">
+    <a href="https://t.me/DLKDevelopers">
         News
     </a>
     •
-    <a href="https://t.me/">
+    <a href="https://t.me/DevDLK">
         Chat
     </a>
 </p>
 
-## Pyrogram
+## DLKGram
 
 > [!NOTE]
-> Unfortunately, the original pyrogram is no longer supported. I will try to be your @delivrance.
+> The original Pyrogram is no longer actively maintained.  
+> **DLKGram** is a modern fork by **TEAM-DLK**, with updated features and long-term support.
 
-> Elegant, modern and asynchronous Telegram MTProto API framework in Python for users and bots
+> Elegant, modern and asynchronous Telegram MTProto API framework in Python for users and bots.
 
-``` python
+```python
 from pyrogram import Client, filters
 
 app = Client("my_account")
 
-
 @app.on_message(filters.private)
 async def hello(client, message):
-    await message.reply("Hello from Pyrogram!")
+    await message.reply("Hello from DLKGram!")
 
+app.run()
+````
+
+**DLKGram** is a modern, elegant and asynchronous
+[MTProto API](https://core.telegram.org/mtproto) framework for Python.
+It allows you to interact with Telegram using user accounts or bot accounts, with better performance and updated compatibility.
+
+---
+
+## 🚀 Why DLKGram?
+
+* **Maintained**: Active support & updates by TEAM-DLK
+* **Easy**: Simple API, same Pyrogram experience
+* **Elegant**: Clean and modern codebase
+* **Fast**: Powered by [TgCrypto](https://github.com/pyrogram/tgcrypto)
+* **Async Ready**: Fully asynchronous (sync usage also supported)
+* **Powerful**: Full Telegram MTProto API access
+
+---
+
+## 📦 Installation
+
+### Stable version (PyPI)
+
+```bash
+pip install dlkgram
+```
+
+### Development version (GitHub)
+
+```bash
+pip install https://github.com/TEAM-DLK/DLKGram/archive/main.zip --force-reinstall
+```
+
+---
+
+## 💡 Example
+
+```python
+from pyrogram import Client, filters
+
+app = Client(
+    "dlk_session",
+    api_id=123456,
+    api_hash="YOUR_API_HASH"
+)
+
+@app.on_message(filters.command("start"))
+async def start(client, message):
+    await message.reply("🔥 DLKGram is working perfectly!")
 
 app.run()
 ```
 
-**Pyrogram** is a modern, elegant and asynchronous [MTProto API](https://docs.kurigram.live/topics/mtproto-vs-botapi)
-framework. It enables you to easily interact with the main Telegram API through a user account (custom client) or a bot
-identity (bot API alternative) using Python.
+---
 
-### Support
+## 🌍 Resources
 
-If you'd like to support my fork, you can consider:
+* 📘 Documentation: [https://dlkgram.live/docs](https://dlkgram.live/docs)
+* 📢 Updates Channel: [https://t.me/DLKDevelopers](https://t.me/DLKDevelopers)
+* 💬 Support Chat: [https://t.me/DevDLK](https://t.me/DevDLK)
+* 💻 GitHub: [https://github.com/TEAM-DLK/DLKGram](https://github.com/TEAM-DLK/DLKGram)
 
-- `` - TON
-- `` - USDT TRC20
+---
 
-### Key Features
+## ❤️ Support DLKGram
 
-- **Ready**: Install Pyrogram with pip and start building your applications right away.
-- **Easy**: Makes the Telegram API simple and intuitive, while still allowing advanced usages.
-- **Elegant**: Low-level details are abstracted and re-presented in a more convenient way.
-- **Fast**: Boosted up by [TgCrypto](https://github.com/pyrogram/tgcrypto), a high-performance cryptography library written in C.
-- **Type-hinted**: Types and methods are all type-hinted, enabling excellent editor support.
-- **Async**: Fully asynchronous (also usable synchronously if wanted, for convenience).
-- **Powerful**: Full access to Telegram's API to execute any official client action and more.
+If you'd like to support this project:
 
-### Installing
+* TON: `YOUR_WALLET_HERE`
+* USDT TRC20: `YOUR_WALLET_HERE`
 
-Stable version
+---
 
-``` bash
-pip3 install kurigram
-```
+## ⚠️ Disclaimer
 
-Dev version
-``` bash
-pip3 install https://github.com/KurimuzonAkuma/pyrogram/archive/dev.zip --force-reinstall
-```
+This project is an independent fork.
+Not affiliated with the original Pyrogram developers.
 
-### Resources
+Maintained with ❤️ by **TEAM-DLK**.
 
-- Check out the [docs](https://docs.kurigram.live) to learn more about Pyrogram, get started right
-away and discover more in-depth material for building your client applications.
-- Join the [official channel](https://t.me/) and stay tuned for news, updates and announcements.
-- Join the [official chat](https://t.me/) to communicate with people.
+
