@@ -13,11 +13,11 @@
         Documentation
     </a>
     •
-    <a href="https://t.me/kurigram_news">
+    <a href="https://t.me/">
         News
     </a>
     •
-    <a href="https://t.me/kurigram_chat">
+    <a href="https://t.me/">
         Chat
     </a>
 </p>
@@ -51,8 +51,8 @@ identity (bot API alternative) using Python.
 
 If you'd like to support my fork, you can consider:
 
-- `kurimuzonakuma.ton` - TON
-- `TCbZ7CSpTvTJ6rno2eoWWYBx7hmYF75wk3` - USDT TRC20
+- `` - TON
+- `` - USDT TRC20
 
 ### Key Features
 
@@ -81,5 +81,5 @@ pip3 install https://github.com/KurimuzonAkuma/pyrogram/archive/dev.zip --force-
 
 - Check out the [docs](https://docs.kurigram.live) to learn more about Pyrogram, get started right
 away and discover more in-depth material for building your client applications.
-- Join the [official channel](https://t.me/kurigram_news) and stay tuned for news, updates and announcements.
-- Join the [official chat](https://t.me/kurigram_chat) to communicate with people.
+- Join the [official channel](https://t.me/) and stay tuned for news, updates and announcements.
+- Join the [official chat](https://t.me/) to communicate with people.
