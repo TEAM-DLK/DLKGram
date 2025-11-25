@@ -5,10 +5,10 @@ build-backend = "hatchling.build"
 [project]
 name = "DLKGram"
 dynamic = ["version"]
-description = "Elegant, modern and asynchronous Telegram MTProto API framework in Python for users and bots"
+description = "DLKGram - updated, elegant, modern and asynchronous Telegram MTProto API framework in Python for users and bots"
 readme = "README.md"
 requires-python = ">=3.8"
-authors = [{ name = "TEAM-DLK", email = "djdoozy39@gmail.com" }]
+authors = [{ name = "TEAM-DLK", email = "prodoozy@icloud.com" }]
 maintainers = [{ name = "TEAM-DLK" }]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -49,7 +49,6 @@ keywords = [
 ]
 
 [project.urls]
-
 Source = "https://github.com/TEAM-DLK/DLKGram"
 Community = "https://t.me/DevDLK"
 
@@ -93,5 +92,4 @@ exclude = [
 ]
 
 [tool.hatch.build.targets.wheel]
-ignore-vcs = true
 packages = ["pyrogram"]
